@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run de-poisoning script",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/de_poisoning_pruning_finetuning.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "python": "${workspaceFolder}/.venv/bin/python"
+    }
+  ]
+}

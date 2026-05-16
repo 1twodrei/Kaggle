@@ -1,0 +1,13 @@
+setuptools<81
+wheel
+ipykernel<7
+nbconvert
+numpy
+pandas
+opencv-python
+tqdm
+matplotlib
+torch
+torchvision
+pycocotools
+git+https://github.com/facebookresearch/detectron2.git

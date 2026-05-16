@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+unlearned/
+submission.csv
+
+# Kaggle archive and extracted competition data stay local.
+*.zip
+poisoned_model/
+test_set/
+unlearn_set/
+sample_submission.csv
