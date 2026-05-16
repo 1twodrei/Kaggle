@@ -22,14 +22,13 @@ make setup
 ```
 
 Detectron2 needs `--no-build-isolation` because its setup script imports `torch` while building.
-`make setup` also runs `make unzip`, which extracts `neural-debris-removal-in-streak-detection-models.zip` if the local Kaggle data is not already present.
+The script downloads the competition data with `kagglehub.competition_download(...)` when it runs.
 
 Useful targets:
 
 ```bash
 make help
 make check
-make unzip
 make run
 make clean
 ```

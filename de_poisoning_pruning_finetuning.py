@@ -39,6 +39,7 @@ import json
 from pathlib import Path
 
 import cv2
+import kagglehub
 import numpy as np
 import pandas as pd
 import torch
@@ -63,9 +64,15 @@ from tqdm import tqdm
 
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
-POISONED_WEIGHTS = "poisoned_model/poisoned_model.pth"
-UNLEARN_DIR      = "unlearn_set"
-TEST_DIR         = "test_set/test_set"
+COMPETITION_SLUG = "neural-debris-removal-in-streak-detection-models"
+
+# Download latest version
+DATA_DIR = Path(kagglehub.competition_download(COMPETITION_SLUG))
+print("Path to competition files:", DATA_DIR)
+
+POISONED_WEIGHTS = str(DATA_DIR / "poisoned_model" / "poisoned_model.pth")
+UNLEARN_DIR      = DATA_DIR / "unlearn_set"
+TEST_DIR         = DATA_DIR / "test_set" / "test_set"
 OUTPUT_DIR       = "unlearned"
 SUBMISSION_PATH  = "submission.csv"
 
@@ -519,6 +526,5 @@ print(submission.head())
 
 
 # In[ ]:
-
 
 

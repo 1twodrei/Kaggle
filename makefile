@@ -5,12 +5,11 @@ VENV := .venv
 PYTHON := $(VENV)/bin/python
 KERNEL_NAME := kaggle-detectron2-py311
 KERNEL_DISPLAY := Python 3.11 (.venv: kaggle-detectron2)
-DATA_ZIP := neural-debris-removal-in-streak-detection-models.zip
 
-CORE_DEPS := 'setuptools<81' wheel 'ipykernel<7' nbconvert numpy pandas opencv-python tqdm matplotlib torch torchvision pycocotools
+CORE_DEPS := 'setuptools<81' wheel 'ipykernel<7' nbconvert kagglehub numpy pandas opencv-python tqdm matplotlib torch torchvision pycocotools
 DETECTRON2 := git+https://github.com/facebookresearch/detectron2.git
 
-.PHONY: help setup venv deps kernel unzip check run clean
+.PHONY: help setup venv deps kernel check run clean
 
 help:
 	@echo "Targets:"
@@ -18,12 +17,11 @@ help:
 	@echo "  make venv    Create the Python $(PYTHON_VERSION) virtual environment"
 	@echo "  make deps    Install Python dependencies into .venv"
 	@echo "  make kernel  Register the .venv as a Jupyter kernel"
-	@echo "  make unzip   Extract local Kaggle data archive"
 	@echo "  make check   Compile the Python script without running training"
 	@echo "  make run     Run the de-poisoning workflow"
 	@echo "  make clean   Remove generated outputs and caches"
 
-setup: venv deps kernel unzip
+setup: venv deps kernel
 
 venv:
 	uv python install $(PYTHON_VERSION)
@@ -35,10 +33,6 @@ deps: $(PYTHON)
 
 kernel: $(PYTHON)
 	$(PYTHON) -m ipykernel install --user --name $(KERNEL_NAME) --display-name "$(KERNEL_DISPLAY)"
-
-unzip:
-	@test -f $(DATA_ZIP) || (echo "Missing $(DATA_ZIP)" && exit 1)
-	unzip -n $(DATA_ZIP)
 
 check: $(PYTHON)
 	$(PYTHON) -m py_compile de_poisoning_pruning_finetuning.py
